@@ -21,10 +21,20 @@ teams, conferences, games = getData(2019)
 
 # printRankings(rankings)
 
-for i, c in conferences.items():
-    c.genStandings(games)
-    print('\n')
-    print(c.getInfo())
-    for t, wl in c.standings.items():
-        print(teams[t].school, wl)
+sos = dict()
+for _, team in teams.items():
+    #print('{}: OR={}-{} OOR={}-{}'.format(team.school, team.opponentsWins, team.opponentsLosses, team.opponentsOpponentsWins, team.opponentsOpponentsLosses))
+    sos[team.school] = team.strengthOfSchedule()
 
+i = 0
+done = set()
+while i < len(sos):
+    best = 0
+    team = ''
+    for t, s in sos.items():
+        if s > best and t not in done:
+            best = s
+            team = t
+    done.add(team)
+    i += 1
+    print('{}: {} - {}'.format(i, team, best))

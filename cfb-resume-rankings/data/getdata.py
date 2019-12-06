@@ -113,6 +113,12 @@ def getData(year: int):
     teams = dict()
     for id, team in teamRaw.items():
         teams[id] = Team(team)
+
+    for _, team in teams.items():
+        team.calculateOpponentsRecord(teams, games)
+    for _, team in teams.items():
+        team.calculateOpponentsOpponentsRecord(teams, games)
+    
     
     return (teams, conferences, games)
     
