@@ -35,7 +35,6 @@ class Team:
     def calculateOpponentsRecord(self, teams, games):
         for _, gameID in self.schedule.items():
             opponentID = games[gameID].getOpponent(self.id)
-            print(opponentID, self.id)
             if opponentID != self.id and opponentID in teams:
                 opponentsWins = teams[opponentID].wins
                 opponentsLosses = teams[opponentID].losses
@@ -55,7 +54,7 @@ class Team:
             elif opponentID not in teams:
                 self.opponentsOpponentsLosses += 6 * 11 #add 6 losses per FCS opponent's opponent
 
-    def strengthOfSchedule(self):
+    def getStrengthOfSchedule(self):
         opponentsRecord = self.opponentsWins / float(self.opponentsWins + self.opponentsLosses)
         opponentsOpponentsRecord = self.opponentsOpponentsWins / float(self.opponentsOpponentsWins + self.opponentsOpponentsLosses)
         return ( (2 * opponentsRecord) + opponentsOpponentsRecord ) / 3.0
