@@ -1,13 +1,14 @@
 import pprint
 
 from data.getdata import getData
-from models.SosModel import SosModel
-
+from models.conferenceSosModel import ConferenceSosModel
+from models.sosModel import SosModel
+ 
 pp = pprint.PrettyPrinter(indent=2)
 
 teams, conferences, games = getData(2019)
 
-randRankings = SosModel(teams, conferences, games)
+randRankings = ConferenceSosModel(teams, conferences, games)
 
 rankings = randRankings.getTopNTeams(25)
 
@@ -21,6 +22,11 @@ def printRankings(rankings):
 
 printRankings(rankings)
 
+rankings = SosModel(teams, conferences, games)
+
+rankings = rankings.getTopNTeams(25)
+
+printRankings(rankings)
 # sos = dict()
 # for _, team in teams.items():
 #     #print('{}: OR={}-{} OOR={}-{}'.format(team.school, team.opponentsWins, team.opponentsLosses, team.opponentsOpponentsWins, team.opponentsOpponentsLosses))

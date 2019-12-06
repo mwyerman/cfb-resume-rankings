@@ -43,6 +43,9 @@ def getData(year: int):
 
         t['schedule'] = dict()
         t['wins'] = 0
+        t['conference'] = confID
+        t['oocWins'] = 0
+        t['oocGames'] = 0
 
         teamIDs[t['school']] = t['id']
         teamRaw[t['id']] = t
@@ -92,16 +95,26 @@ def getData(year: int):
                 g['away_team'] = awayID
                 g['away_conference'] = awayConfID
                 g['away_division'] = awayDivID
+            
+            if g['home_conference'] != g['away_conference']:
+                if homeID in teamRaw:
+                    teamRaw[homeID]['oocGames'] += 1
+                if awayID in teamRaw:
+                    teamRaw[awayID]['oocGames'] += 1
 
             if homeID in teamRaw:
                 teamRaw[homeID]['schedule'][g['week']] = g['id']
                 if g['home_points'] > g['away_points']:
                     teamRaw[homeID]['wins'] += 1
+                    if g['home_conference'] != g['away_conference']:
+                        teamRaw[homeID]['oocWins'] += 1
 
             if awayID in teamRaw:
                 teamRaw[awayID]['schedule'][g['week']] = g['id']
                 if g['away_points'] > g['home_points']:
                     teamRaw[awayID]['wins'] += 1
+                    if g['home_conference'] != g['away_conference']:
+                        teamRaw[awayID]['oocWins'] += 1
             
             gameRaw[g['id']] = g
 

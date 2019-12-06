@@ -23,8 +23,6 @@ class Game:
     away_points: int
     away_line_scores: List[int]
     away_post_win_prob: float
-    same_conference: bool
-    same_division: bool
 
     def __init__(self, obj) -> None:
         for k, v in obj.items():
